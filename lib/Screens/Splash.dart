@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'MyHomePage.dart';
 import 'IntroScreen.dart';
 import 'Accueil.dart';
+import 'IntroScreen.dart';
+import 'MyHomePage.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -21,12 +23,12 @@ class _SplashState extends State<Splash> {
 
     if(_seen){
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => Accueil()));
+          MaterialPageRoute(builder: (context) => MyHomePage('Accueil')));
     }
     else {
       await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => IntroScreen()));
+          MaterialPageRoute(builder: (context) => MyHomePage('Accueil')));
     }
   }
 

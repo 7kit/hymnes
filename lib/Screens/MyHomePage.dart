@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage(String s, {Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -44,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Center(child: Text(widget.title)),
+        title: Center(child: Text('Accueil')),
+        elevation: 10.0,
         actions: <Widget>[
           PopupMenuButton(
             itemBuilder: (BuildContext context){
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width/4,
                           height: MediaQuery.of(context).size.width/4,
-                          child: Icon(Icons.star,color: Colors.white,)),
+                          child: Icon(Icons.star,color: Colors.white,size: MediaQuery.of(context).size.width/4,)),
                       onPressed: (){
                         Navigator.of(context).pushNamed('/Favoris');
                       },
@@ -83,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width/4,
                           height: MediaQuery.of(context).size.width/4,
-                          child: Icon(Icons.format_list_numbered, color: Colors.white,)),
+                          child: Icon(Icons.format_list_numbered, color: Colors.white,size: MediaQuery.of(context).size.width/4,)),
                       onPressed: (){
                         Navigator.of(context).pushNamed('/numeric');
                       },
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width/4,
                           height: MediaQuery.of(context).size.width/4,
-                          child: Icon(Icons.sort_by_alpha, color: Colors.white,)),
+                          child: Icon(Icons.sort_by_alpha, color: Colors.white,size: MediaQuery.of(context).size.width/4,)),
                       onPressed: (){
                         print('Alphabetical clicked !');
                       },
@@ -113,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width/4,
                           height: MediaQuery.of(context).size.width/4,
-                          child: Icon(Icons.search, color: Colors.white,)),
+                          child: Icon(Icons.search, color: Colors.white,size: MediaQuery.of(context).size.width/4,)),
                       onPressed: (){
                         print('Search clicked');
                       },

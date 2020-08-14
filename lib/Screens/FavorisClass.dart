@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hymnes/HymnesBrain.dart';
-import 'package:hymnes/Screens/UniqueLectureClass.dart';
+import 'package:hymnes/Screens/UniqueOne.dart';
 
 class FavorisClass extends StatefulWidget {
   @override
@@ -43,7 +43,7 @@ class _FavorisClassState extends State<FavorisClass> {
                 leading: CircleAvatar(child: Text('$index'),),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => UniqueLectureClass(numero: index,),
+                    builder: (context) => UniqueOne(numero: index,),
                   ),);
                 },) ;
               },),

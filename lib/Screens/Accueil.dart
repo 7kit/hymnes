@@ -33,7 +33,11 @@ class _AccueilState extends State<Accueil> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
              children: <Widget>[
-            TextField(onChanged: (text){
+            TextField(decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Enter a search term'
+            ),
+              onChanged: (text){
             },),
             IconButton(icon: numeric?Icon(Icons.format_list_numbered, color: Colors.black,):Icon(Icons.sort_by_alpha, color:Colors.black),onPressed: (){
               setState((){

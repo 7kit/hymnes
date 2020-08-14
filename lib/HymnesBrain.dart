@@ -157,6 +157,10 @@ enum Auteur {
 
 
 class Hymne{
+  String grandSection1;
+  String grandSection2;
+  String Auteur;
+  String histoire;
   int number;
   String titre;
   String chant;
