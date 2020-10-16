@@ -3,6 +3,7 @@ import 'package:hymnes/Screens/FavorisClass.dart';
 import 'package:hymnes/Screens/SearchClass.dart';
 import 'package:hymnes/Screens/NumericClass.dart';
 import 'package:hymnes/Screens/AlphabeticClass.dart';
+import 'package:hymnes/Screens/UniqueOne.dart';
 import 'Screens/UniqueLectureClass.dart';
 import 'HymnesBrain.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           "/numeric" : (BuildContext context) => new NumericClass(),
           "/alphabetic" : (BuildContext context) => new AlphabeticClass(),
           "/unique" : (BuildContext context) => new UniqueLectureClass(numero: 1,),
+          "/uniqueOne" : (BuildContext context) => new UniqueOne(numero: 1,),
         },
         theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // import 'package:audioplayers/audioplayers.dart';
 // import 'package:audioplayers/audio_cache.dart';
 
-const _PANEL_HEADER_HEIGHT = 32.0;
+const _PANEL_HEADER_HEIGHT = 40.0;
 
 class UniqueOne extends StatefulWidget {
   final int numero;
@@ -43,7 +43,7 @@ class _UniqueOneState extends State<UniqueOne> with SingleTickerProviderStateMix
   final Animation<RelativeRect> animation = _getPanelAnimation(constraints);
   final ThemeData theme = Theme.of(context);
   return new Container(
-    color: theme.primaryColor,
+    color: Colors.lime[100],
     child: new Stack(
       children: <Widget>[
         new Center(
@@ -68,7 +68,7 @@ class _UniqueOneState extends State<UniqueOne> with SingleTickerProviderStateMix
                     _controller.fling(velocity: _isPanelVisible ? -1.0 : 1.0);
                   },
                   icon: new AnimatedIcon(
-                    icon: AnimatedIcons.close_menu,
+                    icon: AnimatedIcons.add_event,
                     progress: _controller.view,
                   ),
                 ),
@@ -100,7 +100,8 @@ Animation<RelativeRect> _getPanelAnimation(BoxConstraints constraints) {
     return new Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
-          title: new Text("Step1"),
+          // title: new Text("Step1"),
+          backgroundColor: Colors.green,
           leading: null,
         ),
         body: new LayoutBuilder(

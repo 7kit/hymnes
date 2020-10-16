@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:hymnes/Screens/UniqueOne.dart';
 class HomeInput extends StatefulWidget {
   @override
   _HomeInputState createState() => _HomeInputState();
@@ -12,35 +13,60 @@ class _HomeInputState extends State<HomeInput> {
   final items = List<String>.generate(20, (i) => "Item $i");
 
   Widget _cell(String title) {
-    return (
-      Card(
+    return (Card(
       color: Colors.white,
-      child: Container(
-        height: 60.0,
-
-        child: Row(
-          children: [
-            Container(
-              width: 50.0,
-              height: 50.0,
-              decoration: new BoxDecoration(
-                color: Colors.green.shade200,
-                borderRadius: BorderRadius.all(Radius.circular(5.0))
-              ),
-              child: Container(
-                width: 40.0,
-                height: 40.0,
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20.0))
-              ),
-                child: Center(child: Text('1')),
-            ),
-            ),
-            Text(title)
-          ],
-        )
-        ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UniqueOne(
+                  numero: 1,
+                ),
+              ));
+        },
+        child: Container(
+            height: 60.0,
+            child: Row(
+              children: [
+                Container(
+                  width: 50.0,
+                  height: 50.0,
+                  decoration: new BoxDecoration(
+                      color: Colors.green.shade200,
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: Container(
+                    width: 40.0,
+                    height: 40.0,
+                    decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    child: Center(
+                      child: Text('565'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // titre de l'hymne
+                      Text('Titre'),
+                      // ligne pour les soustitres
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Auteur'),
+                          Text('Andante'),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )),
+      ),
     ));
   }
 
