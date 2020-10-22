@@ -206,7 +206,7 @@ class _HomeInputState extends State<HomeInput> {
                     title: new TextField(
                       controller: controller,
                       decoration: new InputDecoration(
-                          hintText: 'Search', border: InputBorder.none),
+                          hintText: 'Rechercher', border: InputBorder.none),
                       // onChanged: onSearchTextChanged,
                     ),
                     trailing: new IconButton(
