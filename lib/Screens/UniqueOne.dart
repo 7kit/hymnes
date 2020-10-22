@@ -46,8 +46,47 @@ class _UniqueOneState extends State<UniqueOne> with SingleTickerProviderStateMix
     color: Colors.lime[100],
     child: new Stack(
       children: <Widget>[
-        new Center(
-          child: new Text("base"),
+        SingleChildScrollView(
+                  child: new Center(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: new Text( "\n1\n\n"
+
+
+"Praise to the Lord, the Almighty, the King of creation!\n"
+"O my soul, praise Him, for He is thy health and salvation!\n"
+"All ye who hear, now to His temple draw near;\n"
+"Join ye in glad adoration!\n"
+
+"\n2\n\n"
+"Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
+"Shieldeth thee under His wings, yea, so gently sustaineth!\n"
+"Hast thou not seen how thy desires e’er have been\n"
+"Granted in what He ordaineth?\n"
+
+"\n2\n\n"
+"Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
+"Shieldeth thee under His wings, yea, so gently sustaineth!\n"
+"Hast thou not seen how thy desires e’er have been\n"
+"Granted in what He ordaineth?\n"
+
+"\n2\n\n"
+"Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
+"Shieldeth thee under His wings, yea, so gently sustaineth!\n"
+"Hast thou not seen how thy desires e’er have been\n"
+"Granted in what He ordaineth?\n"
+
+"\n2\n\n"
+"Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
+"Shieldeth thee under His wings, yea, so gently sustaineth!\n"
+"Hast thou not seen how thy desires e’er have been\n"
+"Granted in what He ordaineth?\n",
+              textAlign: TextAlign.justify,style: TextStyle(
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.w800,
+                                ),),
+            ),
+          ),
         ),
         new PositionedTransition(
         rect: animation,
@@ -75,7 +114,17 @@ class _UniqueOneState extends State<UniqueOne> with SingleTickerProviderStateMix
                               ),
               ),]),
             ),
-            new Expanded(child: new Center(child: new Text("Ceci est l histoire du comte de Zinzendorf !")))
+            new Expanded(child: 
+              SingleChildScrollView(
+                              child: new Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Text("Ceci est l histoire du comte de Zinzendorf !",textAlign: TextAlign.justify,style: TextStyle(
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.w800,
+                                ),),
+                  )),
+              ))
           ]),
         ),
         )

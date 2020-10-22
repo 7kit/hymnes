@@ -47,21 +47,37 @@ class _HomeInputState extends State<HomeInput> {
                   ),
                 ),
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      // titre de l'hymne
-                      Text('Titre'),
-                      // ligne pour les soustitres
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Auteur'),
-                          Text('Andante'),
-                        ],
-                      )
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0,right: 10,top: 5.0, bottom: 2.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // titre de l'hymne
+                        Text('Ah qu il est beau de voir !',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16.0,
+                        ),),
+                        // ligne pour les soustitres
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            
+                            Text('Arsene Touck',style: TextStyle(
+                              fontFamily: 'Raleway',
+                              fontWeight: FontWeight.w500,
+                            ),),
+                            Text('Andante',style: TextStyle(
+                              fontFamily: 'Raleway',
+                            ),),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
