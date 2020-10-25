@@ -23,6 +23,17 @@ class HymnesBrain extends ChangeNotifier {
     return _hymnesBank[hymneNumber].chant;
   }
 
+  String getHymneAuteur(int hymneNumber){
+    return "Touck Arsene";
+  }
+
+  String getHymneStyle(int hymneNumber){
+    return "Andante";
+  }
+
+  String getHymneHistoire(int hymneNumber){
+    return "here you find all the story";
+  }
   String getHymneTitre(int hymneNumber) {
     return _hymnesBank[hymneNumber].titre;
   }

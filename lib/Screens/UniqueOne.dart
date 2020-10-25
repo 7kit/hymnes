@@ -1,6 +1,12 @@
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter/material.dart';
+import 'package:hymnes/components/MarqueeWidget.dart';
+import 'package:provider/provider.dart';
+
+import '../HymnesBrain.dart';
 
 // import 'package:audioplayers/audioplayers.dart';
 // import 'package:audioplayers/audio_cache.dart';
@@ -16,12 +22,15 @@ class UniqueOne extends StatefulWidget {
 
 class _UniqueOneState extends State<UniqueOne>
     with SingleTickerProviderStateMixin {
+  static AudioPlayer player = new AudioPlayer();
+  AudioCache localTo = new AudioCache(fixedPlayer: player);
   //HymnesBrain brain = HymnesBrain();
   String voix = 'soprano';
   AnimationController _controller;
   bool favoris = false;
   bool playing = false;
   bool stopped = true;
+  bool paused = false;
   @override
   initState() {
     print('bhbgvgvg');
@@ -42,102 +51,143 @@ class _UniqueOneState extends State<UniqueOne>
         status == AnimationStatus.forward;
   }
 
+  String retourProchain(String voix){
+    switch(voix){
+      case 'soprano':
+        return 'alto';
+        break;
+      case 'alto' :
+        return 'tenor';
+        break;
+      case 'tenor' :
+        return 'basse';
+        break;
+      case 'basse' :
+        return'soprano';
+        break;
+      default : return 'basse';
+    }
+  }
+  String correctVoice(String voix){
+    switch(voix){
+      case 'soprano':
+        return 'S';
+        break;
+      case 'alto' :
+        return 'A';
+        break;
+      case 'tenor' :
+        return 'T';
+        break;
+      case 'basse' :
+        return'B';
+        break;
+      default : return 'B';
+    }
+  }
+  Widget _myCustomDropDown(){
+    return(
+      new GestureDetector(
+        onTap: (){
+          setState(() {
+            voix=retourProchain(voix);
+          });
+        },
+        child:Container(
+          child: Text(correctVoice(voix)),
+        )
+      )
+    );
+  }
+
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     final Animation<RelativeRect> animation = _getPanelAnimation(constraints);
     final ThemeData theme = Theme.of(context);
-    return new Container(
-      color: Colors.lime[100],
-      child: new Stack(
-        children: <Widget>[
-          SingleChildScrollView(
-            child: new Center(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 40.0),
-                child: new Text(
-                  "\n1\n\n"
-                  "Praise to the Lord, the Almighty, the King of creation!\n"
-                  "O my soul, praise Him, for He is thy health and salvation!\n"
-                  "All ye who hear, now to His temple draw near;\n"
-                  "Join ye in glad adoration!\n"
-                  "\n2\n\n"
-                  "Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
-                  "Shieldeth thee under His wings, yea, so gently sustaineth!\n"
-                  "Hast thou not seen how thy desires e’er have been\n"
-                  "Granted in what He ordaineth?\n"
-                  "\n2\n\n"
-                  "Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
-                  "Shieldeth thee under His wings, yea, so gently sustaineth!\n"
-                  "Hast thou not seen how thy desires e’er have been\n"
-                  "Granted in what He ordaineth?\n"
-                  "\n2\n\n"
-                  "Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
-                  "Shieldeth thee under His wings, yea, so gently sustaineth!\n"
-                  "Hast thou not seen how thy desires e’er have been\n"
-                  "Granted in what He ordaineth?\n"
-                  "\n2\n\n"
-                  "Praise to the Lord, Who o’er all things so wondrously reigneth,\n"
-                  "Shieldeth thee under His wings, yea, so gently sustaineth!\n"
-                  "Hast thou not seen how thy desires e’er have been\n"
-                  "Granted in what He ordaineth?\n",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.w800,
+    return Consumer<HymnesBrain>(
+          builder: (context, brain, child){
+            return(new Container(
+        color: Colors.lime[100],
+        height: MediaQuery.of(context).size.height-20.0,
+        child: new Stack(
+          children: <Widget>[
+            SingleChildScrollView(
+              child: new Center(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 40.0),
+                  child: new SelectableText(
+                    brain.getHymneChant(widget.numero),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          new PositionedTransition(
-            rect: animation,
-            child: new Material(
-              borderRadius: const BorderRadius.only(
-                  topLeft: const Radius.circular(16.0),
-                  topRight: const Radius.circular(16.0)),
-              elevation: 12.0,
-              child: new Column(children: <Widget>[
-                new Container(
-                  height: _PANEL_HEADER_HEIGHT,
-                  child: Row(children: <Widget>[
-                    Expanded(
-                        flex: 7, child: Center(child: new Text("Histoire"))),
-                    Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: new IconButton(
-                          onPressed: () {
-                            _controller.fling(
-                                velocity: _isPanelVisible ? -1.0 : 1.0);
-                          },
-                          icon: new AnimatedIcon(
-                            icon: AnimatedIcons.add_event,
-                            progress: _controller.view,
+            new PositionedTransition(
+              rect: animation,
+              child: new Material(
+                borderRadius: const BorderRadius.only(
+                    topLeft: const Radius.circular(16.0),
+                    topRight: const Radius.circular(16.0)),
+                elevation: 12.0,
+                child: new Column(children: <Widget>[
+                  GestureDetector(
+                    onTap: (){
+                      _controller.fling(
+                                    velocity: _isPanelVisible ? -1.0 : 1.0);
+                    },
+                                    child: new Container(
+                      height: _PANEL_HEADER_HEIGHT,
+                      child: Row(children: <Widget>[
+                        Expanded(
+                            flex: 7, child: Center(child: new Text("Histoire",style: TextStyle(
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w700,
+                    ),))),
+                        Expanded(
+                          flex: 3,
+                          child: Center(
+                            child: new IconButton(
+                              onPressed: () {
+                                _controller.fling(
+                                    velocity: _isPanelVisible ? -1.0 : 1.0);
+                              },
+                              icon: new AnimatedIcon(
+                                icon: AnimatedIcons.add_event,
+                                progress: _controller.view,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ]),
                     ),
-                  ]),
-                ),
-                new Expanded(
-                    child: SingleChildScrollView(
-                  child: new Center(
-                      child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Text(
-                      "Ceci est l histoire du comte de Zinzendorf !",
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        fontFamily: 'Raleway',
-                        fontWeight: FontWeight.w800,
+                  ),
+                  new Expanded(
+                      child: SingleChildScrollView(
+                    child: new Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Text(
+                        brain.getHymneHistoire(widget.numero),
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
-                    ),
-                  )),
-                ))
-              ]),
-            ),
-          )
-        ],
-      ),
+                    )),
+                  ))
+                ]),
+              ),
+            )
+          ],
+        ),
+      )
+      );
+          }
+           
     );
   }
 
@@ -153,36 +203,77 @@ class _UniqueOneState extends State<UniqueOne>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        elevation: 0.0,
-        title: new Text("Titre Cantique !"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.play_circle_filled),
-            onPressed: () {
-              print('playing des cantiques');
+    return Consumer<HymnesBrain>(
+          builder:(context, brain, child){
+            return(new Scaffold(
+              appBar: new AppBar(
+                elevation: 0.0,
+                title: MarqueeWidget(
+                  direction: Axis.horizontal,
+                                  child: new Text(brain.getHymneTitre(widget.numero), style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w800,
+                          ),),
+                ),
+                actions: <Widget>[
+                  _myCustomDropDown(),
+                  IconButton(
+                    icon: playing?Icon(Icons.pause_circle_filled):Icon(Icons.play_circle_filled),
+                    onPressed: () {
+                      setState(() {
+                        if(playing){
+                          playing=false;
+                          paused=true;
+                          stopped=false;
+                        }
+                        else{
+                          playing=true;
+                          paused=false;
+                          stopped=false;
+                        }
+                      });
+                      print('playing des cantiques');
+                    },
+                  ),
+                  playing?IconButton(
+                    icon: Icon(Icons.stop_circle_outlined),
+                    onPressed: () {
+                      setState(() {
+                        stopped=true;
+                        playing=false;
+                        paused=false;
+                      });
+                    },
+                  ):Container(),
+                  PopupMenuButton(
+            itemBuilder: (BuildContext context){
+              return [
+                PopupMenuItem(child: Row(
+                  children: [
+                    IconButton(
+                        icon: Icon(Icons.favorite_border),
+                        color: Colors.green,
+                        onPressed: () {
+                          print('chanson bien ajoute aux favoris ');
+                        },
+                      ),
+                      Text('Aimer'),
+                  ],
+                ),),
+              ];
             },
           ),
-          IconButton(
-            icon: Icon(Icons.pause_circle_filled),
-            onPressed: () {
-              print('pausing des cantiques');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.favorite_border),
-            onPressed: () {
-              print('favoris des cantiques');
-            },
-          ),
-        ],
-        backgroundColor: Colors.green,
-        leading: null,
-      ),
-      body: new LayoutBuilder(
-        builder: _buildStack,
-      ),
+                ],
+                backgroundColor: Colors.green,
+                leading: null,
+              ),
+              body: new LayoutBuilder(
+                builder: _buildStack,
+              ),
+            ));
+          }
+          
+           
     );
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hymnes/Screens/UniqueOne.dart';
+
+import '../HymnesBrain.dart';
 class HomeInput extends StatefulWidget {
   @override
   _HomeInputState createState() => _HomeInputState();
@@ -10,9 +12,10 @@ class HomeInput extends StatefulWidget {
 class _HomeInputState extends State<HomeInput> {
   bool favoris = false;
   final controller = TextEditingController();
+  HymnesBrain brain = new HymnesBrain();
   final items = List<String>.generate(20, (i) => "Item $i");
 
-  Widget _cell(String title) {
+  Widget _cell(int idx) {
     return (Card(
       color: Colors.white,
       child: InkWell(
@@ -21,7 +24,7 @@ class _HomeInputState extends State<HomeInput> {
               context,
               MaterialPageRoute(
                 builder: (context) => UniqueOne(
-                  numero: 1,
+                  numero: idx,
                 ),
               ));
         },
@@ -42,7 +45,7 @@ class _HomeInputState extends State<HomeInput> {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     child: Center(
-                      child: Text('565'),
+                      child: Text((idx+1).toString()),
                     ),
                   ),
                 ),
@@ -54,7 +57,7 @@ class _HomeInputState extends State<HomeInput> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         // titre de l'hymne
-                        Text('Ah qu il est beau de voir !',
+                        Text(brain.getHymneTitre(idx),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(
@@ -67,11 +70,11 @@ class _HomeInputState extends State<HomeInput> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             
-                            Text('Arsene Touck',style: TextStyle(
+                            Text(brain.getHymneAuteur(idx),style: TextStyle(
                               fontFamily: 'Raleway',
                               fontWeight: FontWeight.w500,
                             ),),
-                            Text('Andante',style: TextStyle(
+                            Text(brain.getHymneStyle(idx),style: TextStyle(
                               fontFamily: 'Raleway',
                             ),),
                           ],
@@ -223,9 +226,9 @@ class _HomeInputState extends State<HomeInput> {
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: items.length,
+                  itemCount: brain.nombres(),
                   itemBuilder: (context, index) {
-                    return _cell(items[index]);
+                    return _cell(index);
                     // return ListTile(
                     //   title: Text('${items[index]}'),
                     // );

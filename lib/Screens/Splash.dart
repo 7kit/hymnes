@@ -43,9 +43,11 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Container(
-      color: Colors.teal[800],
-      child: Center(child: Text("Louanges à Dieu !", softWrap:true, textAlign: TextAlign.center, style: TextStyle(color: Colors.white) ),),
-    ),);
+    return Material(
+          child: Container(child: Container(
+        color: Colors.teal[800],
+        child: Center(child: Expanded(child: Text("Louanges à Dieu !", softWrap:true, textAlign: TextAlign.center, style: TextStyle(color: Colors.white) )),),
+      ),),
+    );
   }
 }

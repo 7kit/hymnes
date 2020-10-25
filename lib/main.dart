@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           "/uniqueOne" : (BuildContext context) => new UniqueOne(numero: 1,),
         },
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         home: Splash(),
       ),
