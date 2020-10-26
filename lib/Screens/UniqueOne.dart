@@ -94,6 +94,15 @@ class _UniqueOneState extends State<UniqueOne>
           });
         },
         child:Container(
+          padding: EdgeInsets.symmetric(vertical: 1.0,horizontal: 2.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.white,
+            ),
+            borderRadius: BorderRadius.all(
+                Radius.circular(5.0)
+            ),
+          ),
           child: Text(correctVoice(voix)),
         )
       )
@@ -216,7 +225,7 @@ class _UniqueOneState extends State<UniqueOne>
                           ),),
                 ),
                 actions: <Widget>[
-                  _myCustomDropDown(),
+                  Center(child: _myCustomDropDown()),
                   IconButton(
                     icon: playing?Icon(Icons.pause_circle_filled):Icon(Icons.play_circle_filled),
                     onPressed: () {
