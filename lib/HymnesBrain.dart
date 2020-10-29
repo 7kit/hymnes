@@ -8,10 +8,10 @@ class HymnesBrain extends ChangeNotifier {
   List<String> favoris;
   
   List<Hymne> _hymnesBank = [
-  Hymne(number: 1, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 1 !', chant: '\t 1 \n Vous qui sur la terre habitez,\n Chantez à haute voix, chantez!\n Réjouissez-vous au Seigneur,\n Par un saint hymne à son honneur!\n \t 2 \n N’est-il pas le Dieu souverain \n Qui nous a formés de sa main, \n Nous, le peuple qu’il veut chérir, \n Et le troupeau qu’il veut nourrir?'),
-  Hymne(number: 2, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 2 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.'),
-  Hymne(number: 3, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 3 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.'),
-  Hymne(number: 4, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 4 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.'),
+  Hymne(number: 1, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 1 !', chant: '\t 1 \n Vous qui sur la terre habitez,\n Chantez à haute voix, chantez!\n Réjouissez-vous au Seigneur,\n Par un saint hymne à son honneur!\n \t 2 \n N’est-il pas le Dieu souverain \n Qui nous a formés de sa main, \n Nous, le peuple qu’il veut chérir, \n Et le troupeau qu’il veut nourrir?', style: 'Andante'),
+  Hymne(number: 2, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 2 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.', style: 'Andante'),
+  Hymne(number: 3, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 3 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.', style: 'Andante'),
+  Hymne(number: 4, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 4 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.', style: 'Andante'),
 ];
 
   UnmodifiableListView<Hymne> get hymnes {
@@ -179,8 +179,9 @@ class Hymne{
   String soprano;
   String alto;
   String tenor;
+  String style;
   bool isFavoris = false;
-  Hymne({this.number, this.soprano, this.alto, this.tenor, this.basse, this.titre, this.chant, this.isFavoris = false});
+  Hymne({this.number, this.soprano, this.alto, this.tenor, this.basse, this.titre, this.chant, this.isFavoris = false, this.style});
 
   void toggleDone() {
     isFavoris = !isFavoris;

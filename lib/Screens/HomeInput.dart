@@ -10,9 +10,11 @@ class HomeInput extends StatefulWidget {
 }
 
 class _HomeInputState extends State<HomeInput> {
-  bool favoris = false;
+  bool isTextSearch = false;
   final controller = TextEditingController();
   HymnesBrain brain = new HymnesBrain();
+  List<Hymne> _searchResult = [];
+  // List<Hymne> _userDetails = [];
   final items = List<String>.generate(20, (i) => "Item $i");
 
   Widget _cell(int idx) {
@@ -75,6 +77,80 @@ class _HomeInputState extends State<HomeInput> {
                               fontWeight: FontWeight.w500,
                             ),),
                             Text(brain.getHymneStyle(idx),style: TextStyle(
+                              fontFamily: 'Raleway',
+                            ),),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )),
+      ),
+    ));
+  }
+
+  Widget _cellResearch(int idx) {
+    return (Card(
+      color: Colors.white,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UniqueOne(
+                  numero: _searchResult[idx].number,
+                ),
+              ));
+        },
+        child: Container(
+            height: 60.0,
+            child: Row(
+              children: [
+                Container(
+                  width: 50.0,
+                  height: 50.0,
+                  decoration: new BoxDecoration(
+                      color: Colors.green.shade200,
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  child: Container(
+                    width: 40.0,
+                    height: 40.0,
+                    decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    child: Center(
+                      child: Text(_searchResult[idx].number.toString()),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0,right: 10,top: 5.0, bottom: 2.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // titre de l'hymne
+                        Text(_searchResult[idx].titre,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16.0,
+                        ),),
+                        // ligne pour les soustitres
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            
+                            Text(_searchResult[idx].Auteur,style: TextStyle(
+                              fontFamily: 'Raleway',
+                              fontWeight: FontWeight.w500,
+                            ),),
+                            Text(_searchResult[idx].style,style: TextStyle(
                               fontFamily: 'Raleway',
                             ),),
                           ],
@@ -186,7 +262,7 @@ class _HomeInputState extends State<HomeInput> {
                           color: const Color(0xff066610),
                         ),
                         child: new IconButton(
-                          icon: favoris
+                          icon: isTextSearch
                               ? Icon(
                                   Icons.sort_by_alpha,
                                   color: Colors.white,
@@ -198,9 +274,9 @@ class _HomeInputState extends State<HomeInput> {
                           onPressed: () {
                             // brain.setHymneFavoris(widget.numero);
                             setState(() {
-                              favoris = !favoris;
+                              isTextSearch = !isTextSearch;
                             });
-                            print('voici le favori $favoris');
+                            print('voici le favori $isTextSearch');
                             controller.clear();
                           },
                         ),
@@ -210,7 +286,7 @@ class _HomeInputState extends State<HomeInput> {
                       controller: controller,
                       decoration: new InputDecoration(
                           hintText: 'Rechercher', border: InputBorder.none),
-                      // onChanged: onSearchTextChanged,
+                      onChanged: onSearchTextChanged,
                     ),
                     trailing: new IconButton(
                       icon: new Icon(Icons.cancel),
@@ -223,7 +299,16 @@ class _HomeInputState extends State<HomeInput> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
+                child:
+                  _searchResult.length != 0 || controller.text.isNotEmpty
+                ? new ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+              itemCount: _searchResult.length,
+              itemBuilder: (context, i) {
+                return _cellResearch(i);
+            }):
+                 ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: brain.nombres(),
@@ -241,7 +326,24 @@ class _HomeInputState extends State<HomeInput> {
       ),
     );
   }
+
+  onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    brain.hymnes.forEach((userDetail) {
+      if (userDetail.titre.contains(text) || userDetail.chant.contains(text))
+        _searchResult.add(userDetail);
+    });
+
+    setState(() {});
+  }
 }
+
+
 
 class MyPainter extends CustomPainter {
   @override
