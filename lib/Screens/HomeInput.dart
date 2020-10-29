@@ -100,7 +100,7 @@ class _HomeInputState extends State<HomeInput> {
               context,
               MaterialPageRoute(
                 builder: (context) => UniqueOne(
-                  numero: _searchResult[idx].number,
+                  numero: _searchResult[idx].number-1,
                 ),
               ));
         },
@@ -146,7 +146,7 @@ class _HomeInputState extends State<HomeInput> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             
-                            Text(_searchResult[idx].Auteur,style: TextStyle(
+                            Text(_searchResult[idx].auteur,style: TextStyle(
                               fontFamily: 'Raleway',
                               fontWeight: FontWeight.w500,
                             ),),
@@ -292,6 +292,7 @@ class _HomeInputState extends State<HomeInput> {
                       icon: new Icon(Icons.cancel),
                       onPressed: () {
                         controller.clear();
+                        _searchResult.clear();
                         // onSearchTextChanged('');
                       },
                     ),
@@ -308,7 +309,7 @@ class _HomeInputState extends State<HomeInput> {
               itemBuilder: (context, i) {
                 return _cellResearch(i);
             }):
-                 ListView.builder(
+                 new ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: brain.nombres(),

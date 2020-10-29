@@ -8,10 +8,10 @@ class HymnesBrain extends ChangeNotifier {
   List<String> favoris;
   
   List<Hymne> _hymnesBank = [
-  Hymne(number: 1, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 1 !', chant: '\t 1 \n Vous qui sur la terre habitez,\n Chantez à haute voix, chantez!\n Réjouissez-vous au Seigneur,\n Par un saint hymne à son honneur!\n \t 2 \n N’est-il pas le Dieu souverain \n Qui nous a formés de sa main, \n Nous, le peuple qu’il veut chérir, \n Et le troupeau qu’il veut nourrir?', style: 'Andante'),
-  Hymne(number: 2, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 2 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.', style: 'Andante'),
-  Hymne(number: 3, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 3 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.', style: 'Andante'),
-  Hymne(number: 4, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 4 !', chant: '\t 1 \n Entrez dans son temple aujourd’hui \n Venez vous présenter à lui \n Célébrez son nom glorieux, \n Et l’élevez jusques aux cieux. \n \t 2 \n C’est un Dieu rempli de bonté, \n D’une éternelle vérité, \n Toujours propice à nos souhaits, \n Et sa grâce dure à jamais.', style: 'Andante'),
+  Hymne(number: 1, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Vous qui sur la terre 1 !', chant: '\t 1 \n Vous qui sur la terre habitez,\n Chantez à haute voix, chantez!\n Réjouissez-vous au Seigneur,\n Par un saint hymne à son honneur!\n \t 2 \n N’est-il pas le Dieu souverain \n Qui nous a formés de sa main, \n Nous, le peuple qu’il veut chérir, \n Et le troupeau qu’il veut nourrir?', style: 'Andante',auteur: 'Touck Arsene'),
+  Hymne(number: 2, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Les cieux, en chaque lieu...', chant: '\t 1 \n Les cieux, en chaque lieu, \n De la gloire de Dieu \n Instruisent les humains. \n Dans leur immensité, \n \t 2 \n Ils prêchent la beauté \n Des oeuvres de ses mains. \n Un jour à l autre jour \n Annonce son amour, \n Raconte sa puissance; \n Et la nuit à la nuit, \n Sans langage et sans bruit, \n Dit sa magnificence.', style: 'Andante',auteur: 'Touck Arsene'),
+  Hymne(number: 3, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Dieu me conduit', chant: '\t 1 \n Dieu me conduit, par sa bonté suprême; \n C est mon berger qui me garde et qui m aime \n Rien ne me manque en ses gras pâturages, \n Et pour l amour de son nom admirable, \n \t 2 \n Il me protège et rend ma paix durable. \n Quand il faudrait marcher dans la nuit sombre, \n Quand de la mort je traverserais l ombre, \n Je n\'en aurais ni terreur, ni détresse', style: 'Andante',auteur: 'Touck Arsene'),
+  Hymne(number: 4, soprano: 'H001', alto: 'H002', tenor: 'H003', basse: 'H004', titre: 'Comme un cerf altéré brame', chant: '\t 1 \n Comme un cerf altéré brâme \n Après le courant des eaux, \n Ainsi soupire mon âme, \n Seigneur, après tes ruisseaux; \n \t 2 \n Elle a soif du Dieu vivant, \n Et s\'écrie, en le suivant : \n "Mon Dieu, mon Dieu! quand sera-ce \n Que mes yeux verront ta face?"', style: 'Andante',auteur: 'Touck Arsene'),
 ];
 
   UnmodifiableListView<Hymne> get hymnes {
@@ -170,7 +170,7 @@ enum Auteur {
 class Hymne{
   String grandSection1;
   String grandSection2;
-  String Auteur;
+  String auteur;
   String histoire;
   int number;
   String titre;
@@ -181,7 +181,7 @@ class Hymne{
   String tenor;
   String style;
   bool isFavoris = false;
-  Hymne({this.number, this.soprano, this.alto, this.tenor, this.basse, this.titre, this.chant, this.isFavoris = false, this.style});
+  Hymne({this.number, this.soprano, this.alto, this.tenor, this.basse, this.titre, this.chant, this.isFavoris = false, this.style, this.auteur});
 
   void toggleDone() {
     isFavoris = !isFavoris;

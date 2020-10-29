@@ -51,72 +51,73 @@ class _UniqueOneState extends State<UniqueOne>
         status == AnimationStatus.forward;
   }
 
-  String retourProchain(String voix){
-    switch(voix){
+  String retourProchain(String voix) {
+    switch (voix) {
       case 'soprano':
         return 'alto';
         break;
-      case 'alto' :
+      case 'alto':
         return 'tenor';
         break;
-      case 'tenor' :
+      case 'tenor':
         return 'basse';
         break;
-      case 'basse' :
-        return'soprano';
+      case 'basse':
+        return 'soprano';
         break;
-      default : return 'basse';
+      default:
+        return 'basse';
     }
   }
-  String correctVoice(String voix){
-    switch(voix){
+
+  String correctVoice(String voix) {
+    switch (voix) {
       case 'soprano':
         return 'S';
         break;
-      case 'alto' :
+      case 'alto':
         return 'A';
         break;
-      case 'tenor' :
+      case 'tenor':
         return 'T';
         break;
-      case 'basse' :
-        return'B';
+      case 'basse':
+        return 'B';
         break;
-      default : return 'B';
+      default:
+        return 'B';
     }
   }
-  Widget _myCustomDropDown(){
-    return(
-      new GestureDetector(
-        onTap: (){
+
+  Widget _myCustomDropDown() {
+    return (new GestureDetector(
+        onTap: () {
           setState(() {
-            voix=retourProchain(voix);
+            voix = retourProchain(voix);
+            playing = false;
+            stopped = true;
+            paused = false;
           });
         },
-        child:Container(
-          padding: EdgeInsets.symmetric(vertical: 1.0,horizontal: 2.0),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 1.0, horizontal: 2.0),
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.white,
             ),
-            borderRadius: BorderRadius.all(
-                Radius.circular(5.0)
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
           ),
           child: Text(correctVoice(voix)),
-        )
-      )
-    );
+        )));
   }
 
   Widget _buildStack(BuildContext context, BoxConstraints constraints) {
     final Animation<RelativeRect> animation = _getPanelAnimation(constraints);
     final ThemeData theme = Theme.of(context);
-    return Consumer<HymnesBrain>(
-          builder: (context, brain, child){
-            return(new Container(
+    return Consumer<HymnesBrain>(builder: (context, brain, child) {
+      return (new Container(
         color: Colors.lime[100],
-        height: MediaQuery.of(context).size.height-20.0,
+        height: MediaQuery.of(context).size.height - 20.0,
         child: new Stack(
           children: <Widget>[
             SingleChildScrollView(
@@ -143,18 +144,22 @@ class _UniqueOneState extends State<UniqueOne>
                 elevation: 12.0,
                 child: new Column(children: <Widget>[
                   GestureDetector(
-                    onTap: (){
-                      _controller.fling(
-                                    velocity: _isPanelVisible ? -1.0 : 1.0);
+                    onTap: () {
+                      _controller.fling(velocity: _isPanelVisible ? -1.0 : 1.0);
                     },
-                                    child: new Container(
+                    child: new Container(
                       height: _PANEL_HEADER_HEIGHT,
                       child: Row(children: <Widget>[
                         Expanded(
-                            flex: 7, child: Center(child: new Text("Histoire",style: TextStyle(
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w700,
-                    ),))),
+                            flex: 7,
+                            child: Center(
+                                child: new Text(
+                              "Histoire",
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ))),
                         Expanded(
                           flex: 3,
                           child: Center(
@@ -193,11 +198,8 @@ class _UniqueOneState extends State<UniqueOne>
             )
           ],
         ),
-      )
-      );
-          }
-           
-    );
+      ));
+    });
   }
 
   Animation<RelativeRect> _getPanelAnimation(BoxConstraints constraints) {
@@ -212,77 +214,88 @@ class _UniqueOneState extends State<UniqueOne>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HymnesBrain>(
-          builder:(context, brain, child){
-            return(new Scaffold(
-              appBar: new AppBar(
-                elevation: 0.0,
-                title: MarqueeWidget(
-                  direction: Axis.horizontal,
-                                  child: new Text(brain.getHymneTitre(widget.numero), style: TextStyle(
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w800,
-                          ),),
-                ),
-                actions: <Widget>[
-                  Center(child: _myCustomDropDown()),
-                  IconButton(
-                    icon: playing?Icon(Icons.pause_circle_filled):Icon(Icons.play_circle_filled),
-                    onPressed: () {
-                      setState(() {
-                        if(playing){
-                          playing=false;
-                          paused=true;
-                          stopped=false;
-                        }
-                        else{
-                          playing=true;
-                          paused=false;
-                          stopped=false;
-                        }
-                      });
-                      print('playing des cantiques');
-                    },
-                  ),
-                  playing?IconButton(
-                    icon: Icon(Icons.stop_circle_outlined),
-                    onPressed: () {
-                      setState(() {
-                        stopped=true;
-                        playing=false;
-                        paused=false;
-                      });
-                    },
-                  ):Container(),
-                  PopupMenuButton(
-            itemBuilder: (BuildContext context){
-              return [
-                PopupMenuItem(child: Row(
-                  children: [
-                    IconButton(
-                        icon: Icon(Icons.favorite_border),
-                        color: Colors.green,
-                        onPressed: () {
-                          print('chanson bien ajoute aux favoris ');
-                        },
-                      ),
-                      Text('Aimer'),
-                  ],
-                ),),
-              ];
-            },
+    return Consumer<HymnesBrain>(builder: (context, brain, child) {
+      return (new Scaffold(
+        appBar: new AppBar(
+          elevation: 0.0,
+          title: MarqueeWidget(
+            direction: Axis.horizontal,
+            child: new Text(
+              brain.getHymneTitre(widget.numero),
+              style: TextStyle(
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
-                ],
-                backgroundColor: Colors.green,
-                leading: null,
-              ),
-              body: new LayoutBuilder(
-                builder: _buildStack,
-              ),
-            ));
-          }
-          
-           
-    );
+          actions: <Widget>[
+            Center(child: _myCustomDropDown()),
+            IconButton(
+              icon: playing
+                  ? Icon(Icons.pause_circle_filled)
+                  : Icon(Icons.play_circle_filled),
+              onPressed: () async {
+                if (playing) {
+                  setState(() {
+                    playing = false;
+                    paused = true;
+                    stopped = false;
+                  });
+                  print('pausing $voix');
+                  await player.pause();
+                } else {
+                  setState(() {
+                    playing = true;
+                    paused = false;
+                    stopped = false;
+                  });
+                  print('playing $voix');
+                  await localTo
+                      .play(brain.getHymneAudio(widget.numero, voix) + '.mp3');
+                }
+              },
+            ),
+            playing
+                ? IconButton(
+                    icon: Icon(Icons.stop_circle_outlined),
+                    onPressed: () async {
+                      setState(() {
+                        stopped = true;
+                        playing = false;
+                        paused = false;
+                      });
+                      await player.stop();
+                    },
+                  )
+                : Container(),
+            PopupMenuButton(
+              itemBuilder: (BuildContext context) {
+                return [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.favorite_border),
+                          color: Colors.green,
+                          onPressed: () {
+                            print('chanson bien ajoute aux favoris ');
+                          },
+                        ),
+                        Text('Aimer'),
+                      ],
+                    ),
+                  ),
+                ];
+              },
+            ),
+          ],
+          backgroundColor: Colors.green,
+          leading: null,
+        ),
+        body: new LayoutBuilder(
+          builder: _buildStack,
+        ),
+      ));
+    });
   }
 }
