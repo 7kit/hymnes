@@ -100,7 +100,7 @@ class _HomeInputState extends State<HomeInput> {
               context,
               MaterialPageRoute(
                 builder: (context) => UniqueOne(
-                  numero: _searchResult[idx].number,
+                  numero: int.parse(_searchResult[idx].number),
                 ),
               ));
         },
@@ -333,10 +333,16 @@ class _HomeInputState extends State<HomeInput> {
       setState(() {});
       return;
     }
-
     brain.hymnes.forEach((userDetail) {
-      if (userDetail.titre.contains(text) || userDetail.chant.contains(text))
-        _searchResult.add(userDetail);
+      if(isTextSearch){
+        if (userDetail.titre.contains(text) || userDetail.chant.contains(text))
+                _searchResult.add(userDetail);
+      }
+      else{
+                if (userDetail.number.contains(text))
+                _searchResult.add(userDetail);
+      }
+      
     });
 
     setState(() {});
