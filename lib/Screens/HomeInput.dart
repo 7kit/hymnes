@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hymnes/Screens/UniqueOne.dart';
 
 import '../HymnesBrain.dart';
+
 class HomeInput extends StatefulWidget {
   @override
   _HomeInputState createState() => _HomeInputState();
@@ -47,38 +48,46 @@ class _HomeInputState extends State<HomeInput> {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     child: Center(
-                      child: Text((idx+1).toString()),
+                      child: Text((idx + 1).toString()),
                     ),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10.0,right: 10,top: 5.0, bottom: 2.0),
+                    padding: EdgeInsets.only(
+                        left: 10.0, right: 10, top: 5.0, bottom: 2.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         // titre de l'hymne
-                        Text(brain.getHymneTitre(idx),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16.0,
-                        ),),
+                        Text(
+                          brain.getHymneTitre(idx),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16.0,
+                          ),
+                        ),
                         // ligne pour les soustitres
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            
-                            Text(brain.getHymneAuteur(idx),style: TextStyle(
-                              fontFamily: 'Raleway',
-                              fontWeight: FontWeight.w500,
-                            ),),
-                            Text(brain.getHymneStyle(idx),style: TextStyle(
-                              fontFamily: 'Raleway',
-                            ),),
+                            Text(
+                              brain.getHymneAuteur(idx),
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              brain.getHymneStyle(idx),
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -100,7 +109,7 @@ class _HomeInputState extends State<HomeInput> {
               context,
               MaterialPageRoute(
                 builder: (context) => UniqueOne(
-                  numero: _searchResult[idx].number-1,
+                  numero: _searchResult[idx].number - 1,
                 ),
               ));
         },
@@ -127,32 +136,40 @@ class _HomeInputState extends State<HomeInput> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10.0,right: 10,top: 5.0, bottom: 2.0),
+                    padding: EdgeInsets.only(
+                        left: 10.0, right: 10, top: 5.0, bottom: 2.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         // titre de l'hymne
-                        Text(_searchResult[idx].titre,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16.0,
-                        ),),
+                        Text(
+                          _searchResult[idx].titre,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16.0,
+                          ),
+                        ),
                         // ligne pour les soustitres
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            
-                            Text(_searchResult[idx].auteur,style: TextStyle(
-                              fontFamily: 'Raleway',
-                              fontWeight: FontWeight.w500,
-                            ),),
-                            Text(_searchResult[idx].style,style: TextStyle(
-                              fontFamily: 'Raleway',
-                            ),),
+                            Text(
+                              _searchResult[idx].auteur,
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              _searchResult[idx].style,
+                              style: TextStyle(
+                                fontFamily: 'Raleway',
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -300,26 +317,25 @@ class _HomeInputState extends State<HomeInput> {
                 ),
               ),
               Expanded(
-                child:
-                  _searchResult.length != 0 || controller.text.isNotEmpty
-                ? new ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-              itemCount: _searchResult.length,
-              itemBuilder: (context, i) {
-                return _cellResearch(i);
-            }):
-                 new ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: brain.nombres(),
-                  itemBuilder: (context, index) {
-                    return _cell(index);
-                    // return ListTile(
-                    //   title: Text('${items[index]}'),
-                    // );
-                  },
-                ),
+                child: _searchResult.length != 0 || controller.text.isNotEmpty
+                    ? new ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: _searchResult.length,
+                        itemBuilder: (context, i) {
+                          return _cellResearch(i);
+                        })
+                    : new ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: brain.nombres(),
+                        itemBuilder: (context, index) {
+                          return _cell(index);
+                          // return ListTile(
+                          //   title: Text('${items[index]}'),
+                          // );
+                        },
+                      ),
               ),
             ],
           ),
@@ -334,17 +350,20 @@ class _HomeInputState extends State<HomeInput> {
       setState(() {});
       return;
     }
-
     brain.hymnes.forEach((userDetail) {
-      if (userDetail.titre.contains(text) || userDetail.chant.contains(text))
-        _searchResult.add(userDetail);
+      if (isTextSearch) {
+        if (userDetail.titre.contains(text) || userDetail.chant.contains(text))
+          _searchResult.add(userDetail);
+      } else {
+        // if (userDetail.number.contains(text))
+        // _searchResult.add(userDetail);
+        print('recherche numerique : $text');
+      }
     });
 
     setState(() {});
   }
 }
-
-
 
 class MyPainter extends CustomPainter {
   @override
