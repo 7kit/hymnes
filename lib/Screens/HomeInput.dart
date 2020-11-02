@@ -310,7 +310,6 @@ class _HomeInputState extends State<HomeInput> {
                               isTextSearch = !isTextSearch;
                             });
                             print('voici le favori $isTextSearch');
-                            FocusScope.of(context).requestFocus();
                             Future.delayed(Duration(seconds: 1)).then((v) {
                               FocusScope.of(context).requestFocus(myFocusNode);
                             });
