@@ -125,7 +125,7 @@ class _UniqueOneState extends State<UniqueOne>
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 40.0),
                   child: new SelectableText(
-                    brain.getHymneChant(widget.numero),
+                    brain.getHymneChant(widget.numero - 1),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Raleway',
@@ -184,7 +184,7 @@ class _UniqueOneState extends State<UniqueOne>
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: new Text(
-                        brain.getHymneHistoire(widget.numero),
+                        brain.getHymneHistoire(widget.numero -1),
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontFamily: 'Raleway',
@@ -221,7 +221,7 @@ class _UniqueOneState extends State<UniqueOne>
           title: MarqueeWidget(
             direction: Axis.horizontal,
             child: new Text(
-              brain.getHymneTitre(widget.numero),
+              brain.getHymneTitre(widget.numero -1),
               style: TextStyle(
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.w800,
@@ -251,7 +251,7 @@ class _UniqueOneState extends State<UniqueOne>
                   });
                   print('playing $voix');
                   await localTo
-                      .play(brain.getHymneAudio(widget.numero, voix) + '.mp3');
+                      .play(brain.getHymneAudio(widget.numero - 1, voix) + '.mp3');
                 }
               },
             ),

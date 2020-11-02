@@ -11,12 +11,27 @@ class HomeInput extends StatefulWidget {
 }
 
 class _HomeInputState extends State<HomeInput> {
+  FocusNode myFocusNode;
   bool isTextSearch = false;
   final controller = TextEditingController();
   HymnesBrain brain = new HymnesBrain();
   List<Hymne> _searchResult = [];
   // List<Hymne> _userDetails = [];
   final items = List<String>.generate(20, (i) => "Item $i");
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
 
   Widget _cell(int idx) {
     return (Card(
@@ -27,7 +42,7 @@ class _HomeInputState extends State<HomeInput> {
               context,
               MaterialPageRoute(
                 builder: (context) => UniqueOne(
-                  numero: idx,
+                  numero: int.parse(brain.getHymneNumber(idx)),
                 ),
               ));
         },
@@ -109,7 +124,7 @@ class _HomeInputState extends State<HomeInput> {
               context,
               MaterialPageRoute(
                 builder: (context) => UniqueOne(
-                  numero: _searchResult[idx].number - 1,
+                  numero: int.parse(_searchResult[idx].number),
                 ),
               ));
         },
@@ -130,7 +145,7 @@ class _HomeInputState extends State<HomeInput> {
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     child: Center(
-                      child: Text(_searchResult[idx].number.toString()),
+                      child: Text(_searchResult[idx].number),
                     ),
                   ),
                 ),
@@ -290,17 +305,26 @@ class _HomeInputState extends State<HomeInput> {
                                 ),
                           onPressed: () {
                             // brain.setHymneFavoris(widget.numero);
+                            myFocusNode.unfocus();
                             setState(() {
                               isTextSearch = !isTextSearch;
                             });
                             print('voici le favori $isTextSearch');
+                            FocusScope.of(context).requestFocus();
+                            Future.delayed(Duration(seconds: 1)).then((v) {
+                              FocusScope.of(context).requestFocus(myFocusNode);
+                            });
                             controller.clear();
                           },
                         ),
                       ),
                     ),
                     title: new TextField(
+                      focusNode: myFocusNode,
                       controller: controller,
+                      keyboardType: isTextSearch
+                          ? TextInputType.text
+                          : TextInputType.number,
                       decoration: new InputDecoration(
                           hintText: 'Rechercher', border: InputBorder.none),
                       onChanged: onSearchTextChanged,
@@ -310,6 +334,7 @@ class _HomeInputState extends State<HomeInput> {
                       onPressed: () {
                         controller.clear();
                         _searchResult.clear();
+                        setState(() {});
                         // onSearchTextChanged('');
                       },
                     ),
@@ -355,9 +380,8 @@ class _HomeInputState extends State<HomeInput> {
         if (userDetail.titre.contains(text) || userDetail.chant.contains(text))
           _searchResult.add(userDetail);
       } else {
-        // if (userDetail.number.contains(text))
-        // _searchResult.add(userDetail);
-        print('recherche numerique : $text');
+        if (userDetail.number.contains(text)) _searchResult.add(userDetail);
+        // print('recherche numerique : $text');
       }
     });
 
