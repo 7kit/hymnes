@@ -100,6 +100,26 @@ class _UniqueOneState extends State<UniqueOne>
     return data;
   }
 
+  void rightNavigate(HymnesBrain brain, int nume) {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UniqueOne(
+            numero: int.parse(brain.getHymneNumber(nume - 1)),
+          ),
+        ));
+  }
+
+  void leftNavigate(HymnesBrain brain, int nume) {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UniqueOne(
+            numero: int.parse(brain.getHymneNumber(nume + 1)),
+          ),
+        ));
+  }
+
   Widget _myCustomDropDown() {
     return (new GestureDetector(
         onTap: () {
@@ -141,6 +161,16 @@ class _UniqueOneState extends State<UniqueOne>
                       (_baseFontScale * scaleUpdateDetails.scale).clamp(0.5, 5);
                   _fontSize = fontReturn(_fontScale * _baseFontSize);
                 });
+              },
+              onHorizontalDragUpdate: (details) {
+                // Note: Sensitivity is integer used when you don't want to mess up vertical drag
+                if (details.delta.dx > 0) {
+                  print('Right Swipe');
+                  rightNavigate(brain, widget.numero -1);
+                } else if (details.delta.dx < 0) {
+                  print('left swipe');
+                  leftNavigate(brain, widget.numero -1);
+                }
               },
               child: SingleChildScrollView(
                 child: new Center(
