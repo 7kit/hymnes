@@ -51,6 +51,7 @@ flutter:
     - assets/H002.mp3
     - assets/H003.mp3
     - assets/H004.mp3
+    - assets/images/images.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

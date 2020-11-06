@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hymnes/Screens/IntroScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'MyHomePage.dart';
-import 'IntroScreen.dart';
-import 'Accueil.dart';
-import 'IntroScreen.dart';
-import 'MyHomePage.dart';
+// import 'IntroScreen.dart';
+// import 'Accueil.dart';
+// import 'IntroScreen.dart';
+// import 'MyHomePage.dart';
 import 'HomeInput.dart';
 
 class Splash extends StatefulWidget {
@@ -29,7 +30,7 @@ class _SplashState extends State<Splash> {
     else {
       await prefs.setBool('seen', true);
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeInput()));
+          MaterialPageRoute(builder: (context) => IntroScreen()));
     }
   }
 
