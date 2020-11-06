@@ -31,6 +31,11 @@ class _UniqueOneState extends State<UniqueOne>
   bool playing = false;
   bool stopped = true;
   bool paused = false;
+  // fontScaling property
+  double _fontSize = 16;
+  final double _baseFontSize = 16;
+  double _fontScale = 1;
+  double _baseFontScale = 1;
   @override
   initState() {
     print('bhbgvgvg');
@@ -89,6 +94,12 @@ class _UniqueOneState extends State<UniqueOne>
     }
   }
 
+  double fontReturn(double data) {
+    if (data <= 16) return 16;
+    if (data >= 32) return 32;
+    return data;
+  }
+
   Widget _myCustomDropDown() {
     return (new GestureDetector(
         onTap: () {
@@ -120,16 +131,29 @@ class _UniqueOneState extends State<UniqueOne>
         height: MediaQuery.of(context).size.height - 20.0,
         child: new Stack(
           children: <Widget>[
-            SingleChildScrollView(
-              child: new Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 40.0),
-                  child: new SelectableText(
-                    brain.getHymneChant(widget.numero - 1),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w800,
+            GestureDetector(
+              onScaleStart: (ScaleStartDetails scaleStartDetails) {
+                _baseFontScale = _fontScale;
+              },
+              onScaleUpdate: (ScaleUpdateDetails scaleUpdateDetails) {
+                setState(() {
+                  _fontScale =
+                      (_baseFontScale * scaleUpdateDetails.scale).clamp(0.5, 5);
+                  _fontSize = fontReturn(_fontScale * _baseFontSize);
+                });
+              },
+              child: SingleChildScrollView(
+                child: new Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 40.0),
+                    child: new Text(
+                      brain.getHymneChant(widget.numero - 1),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: _fontSize,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
@@ -184,7 +208,7 @@ class _UniqueOneState extends State<UniqueOne>
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: new Text(
-                        brain.getHymneHistoire(widget.numero -1),
+                        brain.getHymneHistoire(widget.numero - 1),
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           fontFamily: 'Raleway',
@@ -221,7 +245,7 @@ class _UniqueOneState extends State<UniqueOne>
           title: MarqueeWidget(
             direction: Axis.horizontal,
             child: new Text(
-              brain.getHymneTitre(widget.numero -1),
+              brain.getHymneTitre(widget.numero - 1),
               style: TextStyle(
                 fontFamily: 'Raleway',
                 fontWeight: FontWeight.w800,
@@ -250,8 +274,8 @@ class _UniqueOneState extends State<UniqueOne>
                     stopped = false;
                   });
                   print('playing $voix');
-                  await localTo
-                      .play(brain.getHymneAudio(widget.numero - 1, voix) + '.mp3');
+                  await localTo.play(
+                      brain.getHymneAudio(widget.numero - 1, voix) + '.mp3');
                 }
               },
             ),
