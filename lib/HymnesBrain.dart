@@ -6860,11 +6860,11 @@ class HymnesBrain extends ChangeNotifier {
   }
 
   String getHymneAuteur(int hymneNumber) {
-    return "Touck Arsene";
+    return _hymnesBank[hymneNumber].auteur;
   }
 
   String getHymneStyle(int hymneNumber) {
-    return "Andante";
+    return _hymnesBank[hymneNumber].style;
   }
 
   String getHymneHistoire(int hymneNumber) {
